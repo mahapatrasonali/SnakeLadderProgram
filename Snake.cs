@@ -8,44 +8,55 @@ namespace SnakeLadder
 {
     public class Snake
     {
-        public static void snakeladderProgram()
-        {
-            const int FirstPosition = 0;
-            int position = 0;
-
-            Console.WriteLine("First player is starting with position " + FirstPosition);
-            while (position < 100)
+             static int position = 0;
+            public static void Winning_100()
             {
-                Random random = new Random();
-                int DiceRoll = random.Next(1, 7);
-                Console.WriteLine("The number player got through dice is " + DiceRoll);
-                Random random2 = new Random();
-                int Play = random2.Next(1, 4);
-                if (Play == 1)
+                //Declare Some Varaibles 
+                int currentpos = 0, startpos = 0;
+                const int Won = 100;
+                const int NoPlay = 0;
+                const int Ladder = 1;
+                const int Snake = 2;
+                Random r = new Random();
+                while (position < Won)
                 {
-                    Console.WriteLine("Player got no play");
-                    DiceRoll = 0;
-                    position = position + DiceRoll;
-                    Console.WriteLine("The player position is: " + position);
-                }
-                else if (Play == 2)
-                {
-                    Console.WriteLine("Player got ladder");
-                    position = (position + DiceRoll);
-                    Console.WriteLine("The player position is: " + position);
-
-                }
-                else
-                {
-                    Console.WriteLine("Player got snake");
-                    position = (position - DiceRoll);
-                    if (position < 0)
+                    int ran = r.Next(1, 7); //Generate For Roll A Die
+                    int opt = r.Next(0, 3); //Generate For Check Switch Condition
+                    switch (opt)
                     {
-                        position = FirstPosition;
+                        case NoPlay:  //This IS NOPLAY CASe
+                            Console.WriteLine("You Got No Play");
+                            break;
+
+                        case Ladder:  //This Is Ladder Case
+                            position = currentpos;
+                            if (position < Won)
+                            {
+                                currentpos += ran;
+                                Console.WriteLine("Player Climbed Ladder By:" + ran);
+                                if (currentpos > Won)
+                                {
+                                    currentpos = position;
+                                }
+                            }
+                            break;
+
+                        case Snake:     //This Is Snake Case
+                            if (currentpos > 0)
+                            {
+                                Console.WriteLine("Player Is Bitten By Snake By:" + ran);
+                                currentpos -= ran;
+                            }
+                            else if (currentpos <= 0)
+                            {
+                                currentpos = startpos;
+
+                            }
+                            break;
                     }
-                    Console.WriteLine("The player position is: " + position);
                 }
+                Console.WriteLine("You're Final Position Is:" + position);
             }
-        }
+        
     }
 }
