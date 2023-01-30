@@ -5,8 +5,7 @@
         public static void Main(string[] args) 
         {
             Snake.snakeladderProgram();
-            Snake.diceoutput();
-            Snake.Play();
+           
         }
     }
 }
